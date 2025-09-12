@@ -3,5 +3,45 @@
 {% block title %} My Blog {% endblock title %}
 
 {% block content %}
-    <h1>Welcome to My Blog</h1>
-{% endblock content %}  
+<header id="main-navigation">
+    <h1><a href="">Dario Blog</a></h1>
+    <nav>
+        <a href="">All Posts</a>
+    </nav>
+</header>
+
+<section id="welcome">
+    <header>
+        <img src="" alt="Dario - The Author Of This Blog">
+        <h2>DARIO BLOG</h2>
+    </header>
+
+    <p>Hi, I am Dario and I love to blog about texf and the world!</p>
+</section>
+
+<section id="latest-posts">
+    <h2>My Latest Thoughts</h2>
+
+    <ul>
+        <li>
+            <article class="post">
+                <a href=""><img src="" alt="Mountain Hiking"></a>
+                <div class="post__content">
+                    <h3>Mountain Hiking</h3>
+                    <p>There's nothing like the views you get when hiking in the moutains! And I wasn't even prepared for what happended whilist I was enjoying the view!</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+
+</section>
+
+<section id="about">
+    <h2>What I Do</h2>
+    <p>My name is Dario and I am a software developer and drummer. I love to create new things and share my thoughts with the world!</p>
+    <p>When I am not working, I love to hike in the mountains and explore new places. I also love to play the drums and create music.</p>
+</section>
+
+<h1>Welcome to My Blog</h1>
+{% endblock content %}
+
