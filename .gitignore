@@ -12,6 +12,7 @@ venv/
 *.log
 media/
 staticfiles/
+db.sqlite3
 
 # --- VS Code settings ---
 .vscode/
