@@ -4,6 +4,7 @@
 {% block title %} My Blog {% endblock title %}
 
 {% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post.css' %}">
     <link rel="stylesheet" href="{% static 'blog/index.css' %}">
 {% endblock css_files %}
 
@@ -17,34 +18,28 @@
 
 <section id="welcome">
     <header>
-        <img src="" alt="Dario - The Author Of This Blog">
+        <img src="{% static "blog/images/me.png" %}" alt="Dario - The Author Of This Blog">
         <h2>DARIO BLOG</h2>
     </header>
 
-    <p>Hi, I am Dario and I love to blog about texf and the world!</p>
+    <p>Hi, I am Dario, a Full Stack Developer student, and I love to share my journey in tech and music!</p>
 </section>
 
 <section id="latest-posts">
     <h2>My Latest Thoughts</h2>
 
     <ul>
-        <li>
-            <article class="post">
-                <a href=""><img src="" alt="Mountain Hiking"></a>
-                <div class="post__content">
-                    <h3>Mountain Hiking</h3>
-                    <p>There's nothing like the views you get when hiking in the moutains! And I wasn't even prepared for what happended whilist I was enjoying the view!</p>
-                </div>
-            </article>
-        </li>
+        {% include 'blog/includes/post.html' %}
     </ul>
 
 </section>
 
 <section id="about">
     <h2>What I Do</h2>
-    <p>My name is Dario and I am a software developer and drummer. I love to create new things and share my thoughts with the world!</p>
-    <p>When I am not working, I love to hike in the mountains and explore new places. I also love to play the drums and create music.</p>
+    <p>My name is Dario and I am currently studying to become a Full Stack Developer. 
+    I enjoy learning new technologies, building projects, and exploring the world of software development.</p>
+    <p>Outside of coding, I am a drummer and a music enthusiast. Playing drums gives me rhythm and discipline, 
+    which I bring into my work as a developer. My blog is where I combine these passions and share my experiences.</p>
 </section>
 
 <h1>Welcome to My Blog</h1>
