@@ -2,12 +2,11 @@
 
 <li>
     <article class="post">
-        <a href="{% url 'post-detail-page' 'the-coding' %}">
-        <img src="{% static "blog/images/me-coding.png" %}" alt="Coding and Music">
+        <a href="{% url 'post-detail-page' post.slug %}">
+        <img src="{% static "blog/images/"|add:post.image %}" alt="{{ post.title }}">
         <div class="post__content">
-            <h3>Balancing Code and Music</h3>
-            <p>Every day I dive deeper into coding and web development, but music is always there to keep me inspired. 
-                Writing code feels like composing a song: both require creativity, patience, and passion.</p>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.excerpt }}</p>
         </div>
     </a>
     </article>
