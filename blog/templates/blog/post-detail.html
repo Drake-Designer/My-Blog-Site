@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} This Post Title {% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post-detail.css' %}">
+{% endblock css_files %}
+
+{% block content %}
+
+<section id="summary">
+    <h2>Post Title</h2>
+    <article>
+        <img src="{%static "blog/images/me-drumming.png" %}" alt="Post Title">
+        <address>By Dario</address>
+        <div>
+            Last udated on: <time> Semptember 15</time>
+        </div>
+    </article>
+</section>
+
+<main>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe similique velit nisi ad perspiciatis beatae quo repudiandae et inventore sed eligendi minima maxime reprehenderit nostrum, maiores architecto minus laborum in.
+    </p>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe similique velit nisi ad perspiciatis beatae quo repudiandae et inventore sed eligendi minima maxime reprehenderit nostrum, maiores architecto minus laborum in.
+    </p>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe similique velit nisi ad perspiciatis beatae quo repudiandae et inventore sed eligendi minima maxime reprehenderit nostrum, maiores architecto minus laborum in.
+    </p>
+
+</main>
+
+{% endblock content %}
