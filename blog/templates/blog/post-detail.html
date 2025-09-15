@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} This Post Title {% endblock title %}
+{% block title %}
+{{ post.title }}
+{% endblock title %}
 
 {% block css_files %}
     <link rel="stylesheet" href="{% static 'blog/post-detail.css' %}">
@@ -10,28 +12,19 @@
 {% block content %}
 
 <section id="summary">
-    <h2>Post Title</h2>
+    <h2>{{ post.tile}}</h2>
     <article>
-        <img src="{%static "blog/images/me-drumming.png" %}" alt="Post Title">
-        <address>By Dario</address>
+        <img src="{%static "blog/images/"|add:post.image %}" alt="{{post.tile}}">
+        <address>By {{post.author}}</address>
         <div>
-            Last udated on: <time> Semptember 15</time>
+            Last udated on: <time>{{post.date|date:"d M Y"}}</time>
         </div>
     </article>
 </section>
 
 <main>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe similique velit nisi ad perspiciatis beatae quo repudiandae et inventore sed eligendi minima maxime reprehenderit nostrum, maiores architecto minus laborum in.
-    </p>
-
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe similique velit nisi ad perspiciatis beatae quo repudiandae et inventore sed eligendi minima maxime reprehenderit nostrum, maiores architecto minus laborum in.
-    </p>
-
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe similique velit nisi ad perspiciatis beatae quo repudiandae et inventore sed eligendi minima maxime reprehenderit nostrum, maiores architecto minus laborum in.
-    </p>
+ 
+    {{ post.content|linebreaks }}
 
 </main>
 
