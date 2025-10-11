@@ -27,12 +27,8 @@ class AllPostView(ListView):
 class SinglePostView(DetailView):
     template_name = "blog/post-detail.html"
     model = Post
-    context_object_name = "post"
 
-
-def post_detail(request, slug):
-    identified_post = get_object_or_404(Post, slug=slug)
-    return render(request, "blog/post-detail.html", {
-        "post": identified_post,
-        "post_tags": identified_post.tags.all()
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_tags"] = self.object.tags.all()
+        return context
