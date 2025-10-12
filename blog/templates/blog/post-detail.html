@@ -34,9 +34,10 @@
     
 </main>
 
-<div id="comment-form">
+<section id="comment-form">
     <h2>Leave a Comment</h2>
-    <form>
+    <form action="{% url 'post-detail-page' post.slug %}" method="POST">
+        {% csrf_token %}
         {% for form_field in comment_form %}
         <div class="form-control">
             {{ form_field.label_tag }}
@@ -46,6 +47,6 @@
         {% endfor %}
         <button type="submit">Submit Comment</button>        
     </form>
-</div>
+</section>
 
 {% endblock content %}
