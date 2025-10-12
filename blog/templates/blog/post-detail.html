@@ -31,6 +31,13 @@
  
     {{ post.content|linebreaks }}
 
+<div>
+    {{ comment_form.as_p }}
+    <button type="submit">Submit Comment</button>
+</div>
+
+</div>
+
 </main>
 
 {% endblock content %}
