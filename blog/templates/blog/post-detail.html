@@ -31,13 +31,21 @@
  
     {{ post.content|linebreaks }}
 
-<div>
-    {{ comment_form.as_p }}
-    <button type="submit">Submit Comment</button>
-</div>
-
-</div>
-
+    
 </main>
+
+<div id="comment-form">
+    <h2>Leave a Comment</h2>
+    <form>
+        {% for form_field in comment_form %}
+        <div class="form-control">
+            {{ form_field.label_tag }}
+            {{ form_field }}
+            {{ form_field.errors }}
+        </div>
+        {% endfor %}
+        <button type="submit">Submit Comment</button>        
+    </form>
+</div>
 
 {% endblock content %}
