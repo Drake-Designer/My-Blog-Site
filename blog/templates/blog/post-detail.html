@@ -31,7 +31,13 @@
         <form action="{% url 'read-later-page' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="post_id" value="{{ post.id }}">
-            <button>Read Later</button>
+            <button>
+                {% if is_saved_for_later %}
+                    Remove from "Read Later"
+                {% else %}
+                    Add to "Read Later"
+                {% endif %}
+            </button>
         </form>
     </div>
 
