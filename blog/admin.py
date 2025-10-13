@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Author, Tag
+from .models import Post, Author, Tag, Comment
 
 # Register your models here.
 
@@ -11,6 +11,13 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('author', 'tags', 'date')
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user_name', 'post', 'created_at')
+    search_fields = ('user_name', 'user_email', 'content')
+    list_filter = ('created_at',)
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Author)
 admin.site.register(Tag)
+admin.site.register(Comment, CommentAdmin)
