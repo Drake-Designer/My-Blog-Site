@@ -52,8 +52,16 @@ INSTALLED_APPS = [
     'cloudinary_storage',
 ]
 
-# Use Cloudinary storage only if CLOUDINARY_URL is configured
-if os.getenv("CLOUDINARY_URL"):
+# Use Cloudinary storage when the configuration is available. django-cloudinary-storage
+# supports either a single CLOUDINARY_URL string or individual credentials, so we enable
+# the storage backend when one of those configurations is present.
+_cloudinary_url = os.getenv("CLOUDINARY_URL")
+_cloudinary_credentials = all(
+    os.getenv(env_key)
+    for env_key in ("CLOUDINARY_CLOUD_NAME", "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET")
+)
+
+if _cloudinary_url or _cloudinary_credentials:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': os.getenv("CLOUDINARY_CLOUD_NAME", ""),
