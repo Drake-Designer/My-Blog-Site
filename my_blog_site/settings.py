@@ -15,26 +15,28 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base directory (root of the project)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env (no effect in production on Heroku)
+# Load environment variables from .env
+# (has no effect on Heroku, where Config Vars are used instead)
 load_dotenv(BASE_DIR / ".env")
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# Secret key for Django
 SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY missing. Please set it in the .env file")
 
-# Use env for debug. On Heroku set DJANGO_DEBUG=0
+# Debug mode: controlled via env var DJANGO_DEBUG (default: off)
 DEBUG = os.getenv("DJANGO_DEBUG", "0").lower() in ("1", "true", "yes")
 
-# Hosts allowed in production. On Heroku set ALLOWED_HOSTS="my-blog-site.herokuapp.com"
+# Allowed hosts: must be set in production (e.g. ALLOWED_HOSTS="my-blog-site.herokuapp.com")
 ALLOWED_HOSTS = [h.strip() for h in os.getenv(
     "ALLOWED_HOSTS", "").split(",") if h.strip()]
 
 # Application definition
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # My apps
+    # Local apps
     'blog',
 
     # Third-party apps
@@ -50,19 +52,19 @@ INSTALLED_APPS = [
     'cloudinary_storage',
 ]
 
-# Use Cloudinary only if the env var is set
+# Use Cloudinary storage only if CLOUDINARY_URL is configured
 if os.getenv("CLOUDINARY_URL"):
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': os.getenv("CLOUDINARY_CLOUD_NAME", ""),
         'API_KEY': os.getenv("CLOUDINARY_API_KEY", ""),
         'API_SECRET': os.getenv("CLOUDINARY_API_SECRET", ""),
     }
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # serve static files on Heroku
+    # Required for serving static files on Heroku
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,7 +78,7 @@ ROOT_URLCONF = 'my_blog_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [BASE_DIR / "templates"],  # custom templates directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,13 +93,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_blog_site.wsgi.application'
 
 # Database
-# Local default: SQLite. On Heroku: override with DATABASE_URL.
+# Default: SQLite (local development)
+# On Heroku: automatically overridden by DATABASE_URL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
     DATABASES["default"] = dj_database_url.parse(
@@ -120,21 +124,21 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# Static files (CSS, JavaScript, etc.)
+STATIC_ROOT = BASE_DIR / "staticfiles"  # collected static files for deployment
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]  # local static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Media files
+# Media files (uploads by users)
 MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = "/files/"
 
-# Security and proxies
-# Trust Heroku's reverse proxy to tell us HTTPS status
+# Security: trust Heroku's reverse proxy (X-Forwarded-Proto header for HTTPS)
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# CSRF trusted origins. On Heroku set CSRF_TRUSTED_ORIGINS="https://my-blog-site.herokuapp.com"
+# CSRF trusted origins
+# Example: CSRF_TRUSTED_ORIGINS="https://my-blog-site.herokuapp.com"
 _csrf = os.getenv("CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf.split(",") if o.strip()]
 
