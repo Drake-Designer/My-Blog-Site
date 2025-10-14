@@ -17,8 +17,16 @@
             <a href="{% url 'posts-page' %}">All Posts</a>
         </nav>
     </header>
+    
+    <main>
         {% block content %}
         
         {% endblock content %}
+    </main>
 </body>
+
+<footer id="footer">
+    <p>© 2024 Dario Blog. All rights reserved.</p>
+</footer>
+
 </html>
